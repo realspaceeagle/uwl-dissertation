@@ -5,13 +5,13 @@ from Block import Block
 from flask import Flask, request
 
 #app object
-app = Flask(__name__)
+appMainServer = Flask(__name__)
 #blockchain object
 blockchain = Blockchain()
 #peers list
 peers = []
 
-@app.route("/new_transaction", methods=["POST"])
+@appMainServer.route("/new_transaction", methods=["POST"])
 # new transaction added to the block. When user selects to submit new request
 def new_transaction():
     file_data = request.get_json() #get json response
@@ -25,7 +25,7 @@ def new_transaction():
     return "Success", 201
 
 #gets the whole chain to user if not already displayed
-@app.route("/chain", methods=["GET"])
+@appMainServer.route("/chain", methods=["GET"])
 def get_chain():
     # consensus()
     chain = []
@@ -35,9 +35,9 @@ def get_chain():
     #print chain len
     print("Chain Len: {0}".format(len(chain)))
     return json.dumps({"length" : len(chain), "chain" : chain})
-        
 
-@app.route("/mine", methods=["GET"])
+
+@appMainServer.route("/mine", methods=["GET"])
 #Mines pending tx blocks and call mine method in blockchain
 def mine_uncofirmed_transactions():
     result = blockchain.mine()
@@ -45,17 +45,17 @@ def mine_uncofirmed_transactions():
         return "Block #{0} mined successfully.".format(result)
     else:
         return "No pending transactions to mine."
-    
 
 
-@app.route("/pending_tx")
+
+@appMainServer.route("/pending_tx")
 # Queries uncofirmed transactions
 def get_pending_tx():
     return json.dumps(blockchain.pending)
 
 
 
-@app.route("/add_block", methods=["POST"])
+@appMainServer.route("/add_block", methods=["POST"])
 # Adds a block mined by user to the chain
 def validate_and_add_block():
     block_data = request.get_json() #get the json response
@@ -69,4 +69,4 @@ def validate_and_add_block():
         return "The Block was discarded by the node.", 400
     return "The block was added to the chain.", 201
 #run the app
-app.run(port=8800, debug=True)
+appMainServer.run(port=8800, debug=True)
