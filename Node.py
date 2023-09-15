@@ -1,6 +1,7 @@
 from Blockchain import Blockchain
 from SocketCommunication import SocketCommunication
 from NodeAPI import NodeAPI
+from Blockchain import Blockchain
 
 
 class Node():
@@ -17,7 +18,7 @@ class Node():
         self.ip = ip
         self.port = port
         # we need block chain itself
-        # self.blockchain = Blockchain()
+        self.blockchain = Blockchain()
 
     def startP2P(self):
         self.p2p = SocketCommunication(self.ip, self.port)

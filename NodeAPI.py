@@ -5,7 +5,6 @@ from app import app
 
 node = None
 
-
 class NodeAPI(FlaskView):
 
     def __init__(self):
@@ -19,3 +18,7 @@ class NodeAPI(FlaskView):
     def injectNode(self, injectedNode):
         global node
         node = injectedNode
+
+    @route('/nodeblockchain', methods=['GET'])
+    def blockchain(self):
+        return node.blockchain.toJson(), 200

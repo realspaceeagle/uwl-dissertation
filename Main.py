@@ -8,5 +8,5 @@ if __name__ == '__main__':
     apiPort = int(sys.argv[3])
     node = Node(ip, port)
     node.startP2P()#
-    print("spi starting")
+    print("api starting")
     node.startAPI(apiPort)

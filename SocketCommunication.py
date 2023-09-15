@@ -46,6 +46,7 @@ class SocketCommunication(Node):
             transaction = message.data
             self.node.handleTransaction(transaction) # need to add chain in fo getting to know other each other chain
 
+
     def send(self, receiver, message):
         self.send_to_node(receiver, message)
 
