@@ -68,5 +68,7 @@ def validate_and_add_block():
     if not added:
         return "The Block was discarded by the node.", 400
     return "The block was added to the chain.", 201
+
+
 #run the app
 appMainServer.run(port=8800, debug=True)
